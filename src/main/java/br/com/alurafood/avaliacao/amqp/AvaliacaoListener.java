@@ -7,14 +7,15 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AvaliacaoListener {
+
     @RabbitListener(queues = "pagamentos.detalhes-avaliacao")
     public void recebeMensagem(@Payload PagamentoDto pagamento) {
         String mensagem = """
-                Necessário criar registro de avaliação para o pedido: %s 
-                Id do pagamento: %s
-                Nome do cliente: %s
-                Valor R$: %s
-                Status: %s 
+                Necessário criar registro de avaliação para o Pedido %s;
+                ID do Pagamento: %s;
+                Nome do Cliente: %s;
+                Valor R$%s;
+                Status: %s.
                 """.formatted(pagamento.getPedidoId(),
                 pagamento.getId(),
                 pagamento.getNome(),
@@ -23,4 +24,5 @@ public class AvaliacaoListener {
 
         System.out.println(mensagem);
     }
+
 }
